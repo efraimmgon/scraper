@@ -1,0 +1,133 @@
+(load "scraper/core")
+(in-ns 'scraper.core)
+(let [p (get-page)]
+  (.title p))
+(let [p (get-page *base-url*)]
+  (.title p))
+(let [p (get-page *base-url*)]
+  p)
+(.get (Jsoup/connect *base-url*))
+(-> (Jsoup/connect *base-url*)
+    .get
+    .title)
+(load "core")
+(let [p (get-page *base-url*)]
+  (.title p))
+(let [page (get-page *base-url*)]
+  (count (.select page "#imoveis")))
+(let [page (get-page *base-url*)]
+  (.select page "#imoveis"))
+(let [page (get-page *base-url*)]
+  (doseq [imovel (.select page imoveis-selector)]
+    (-> (.select imovel link-selector)
+        (.attr "href")
+        println)))
+(load "core")
+(let [page (get-page *base-url*)]
+  (doseq [imovel (.select page imoveis-selector)]
+    (-> (.select imovel link-selector)
+        (.attr "href")
+        println)))
+(let [page (get-page *base-url*)]
+  (doseq [imovel (.select page imoveis-selector)]
+    (println imovel)))
+(let [page (get-page *base-url*)]
+  (doseq [imovel (.select page imoveis-selector)]
+    (println)
+    (println imovel)
+    (println)))
+(let [page (get-page *base-url*)]
+  (for [link (.select page link-selector)]
+    (.attr link "href")))
+(let [page (get-page *base-url*)]
+  (for [elt (.select page imoveis-selector)]
+    elt))
+(let [page (get-page *base-url*)]
+  (count
+    (for [elt (.select page imoveis-selector)]
+      elt)))
+(let [page (get-page *base-url*)
+      imoveis (.select page imoveis-selector)]
+    (for [elt (.select imoveis link-selector)]
+      elt))
+(let [page (get-page *base-url*)
+      imoveis (.select page imoveis-selector)]
+    (.select imoveis link-selector))
+(def link-selector ".imovel > a")
+(let [page (get-page *base-url*)
+      imoveis (.select page imoveis-selector)]
+    (.select imoveis link-selector))
+(let [page (get-page *base-url*)
+      imoveis (.select page imoveis-selector)]
+    (count (.select imoveis link-selector)))
+(let [page (get-page *base-url*)
+      imoveis (.select page imoveis-selector)]
+    (for [link (.select imoveis link-selector)]
+      (.attr link "href")))
+(let [page (get-page *base-url*)
+      imoveis (.select page imoveis-selector)]
+    (doseq [link (.select imoveis link-selector)]
+      (println (.attr link "href"))))
+(let [page (get-page *base-url*)
+      imoveis (.select page imoveis-selector)]
+    (.select imoveis link-selector))
+(let [page (get-page *base-url*)
+      imoveis (.select page imoveis-selector)]
+    (count (.select imoveis link-selector)))
+(let [page (get-page *base-url*)]
+  (count (for (.select page imovel-selector))))
+(let [page (get-page *base-url*)]
+  (count 
+   (for [node (.select page imovel-selector)]
+     node)))
+(def imovel-selector ".imovel")
+(let [page (get-page *base-url*)]
+  (count 
+   (for [node (.select page imovel-selector)]
+     node)))
+(defn extract [node]
+  (let [link (.select node link-selector)]
+    (zipmap [:link] [link])))
+(let [page (get-page *base-url*)]
+  (map extract (.select page imovel-selector)))  
+(defn extract [node]
+  (let [link (.select node link-selector)]
+    (zipmap [:link] [(.attr link "href")])))
+(let [page (get-page *base-url*)]
+  (map extract (.select page imovel-selector)))  
+(load "scraper/core")
+(in-ns 'scraper.core)
+(let [page (get-page *base-url*)]
+  (map extract (.select page imovel-selector)))
+(let [page (get-page *base-url*)]
+  (first
+   (.select page imovel-selector)))
+(let [page (get-page *base-url*)]
+  (.select
+    (first
+     (.select page imovel-selector))
+    ".imovel > a > img"))
+(let [page (get-page *base-url*)]
+  (first
+    (first
+     (.select page imovel-selector))))
+(let [page (get-page *base-url*)]
+  (-> (.select page imovel-selector)
+      first
+      (.select ".imovel > a > img")
+      (.attr "src")))
+(let [page (get-page *base-url*)]
+  (-> (.select page imovel-selector)
+      first
+      (.select ".imovel > a > img")
+      (.attr "abs:src")))
+(println 'hey)
+(load "scraper/etaoin")
+(in-ns 'scraper.etaoin)
+(def e/driver (e/chrome))
+(+ 1 1)
+(binding [*ns* (or (find-ns 'scraper.bots.zip) (find-ns 'user))] (load-string "(load-file \"/Users/efraimmgon/projects/scraper/src/scraper/bots/zip.clj\")"))
+(binding [*ns* (or (find-ns 'scraper.bots.zip) (find-ns 'user))] (load-string "(def base-url \"https://cep.guiamais.com.br/busca/guaranta+do+norte-mt\")"))
+(binding [*ns* (or (find-ns 'scraper.bots.zip) (find-ns 'user))] (load-string "(exec! {:base-url base-url
+          :params {:page 1}
+          :filename \"bairros+ruas-gta.csv\"})"))
